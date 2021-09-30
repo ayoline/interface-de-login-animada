@@ -6,16 +6,17 @@ class InputCustomizado extends StatelessWidget {
   final bool obscure;
   final Icon icon;
 
-  InputCustomizado({
+  const InputCustomizado({
+    Key? key,
     required this.hint,
     this.obscure = false,
     this.icon = const Icon(Icons.person),
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: TextField(
         obscureText: obscure,
         decoration: InputDecoration(
