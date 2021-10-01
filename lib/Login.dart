@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/material.dart';
+import 'package:interface_de_login_animada/BotaoAnimado.dart';
 import 'package:interface_de_login_animada/InputCustomizado.dart';
 
 class Login extends StatefulWidget {
@@ -22,7 +23,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     super.initState();
 
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(seconds: 1),
       vsync: this,
     );
 
@@ -61,8 +62,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    _animationController!.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    timeDilation = 8;
+    timeDilation = 10;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -119,7 +127,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.shade200,
@@ -143,36 +151,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           );
                         }),
                     const SizedBox(height: 20),
-                    AnimatedBuilder(
-                        animation: _animationSize!,
-                        builder: (context, widget) {
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              width: _animationSize!.value,
-                              height: 50,
-                              child: const Center(
-                                child: Text(
-                                  "Entrar",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color.fromRGBO(255, 100, 127, 1),
-                                    Color.fromRGBO(255, 123, 145, 1),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
+                    BotaoAnimado(
+                      controller: _animationController!,
+                    ),
                     const SizedBox(height: 10),
                     FadeTransition(
                       opacity: _animationFade!,
